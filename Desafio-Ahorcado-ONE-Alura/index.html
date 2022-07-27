@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Metrophobic&family=Rationale&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon16x16.ico">
+    <title>Juego del Ahorcado</title>
+</head>
+<body>
+    <header><a href="https://www.aluracursos.com/" target="_blank" rel="noopener noreferrer"><img class="logo-alura" alt="logotipo de alura" src="img/Vector-alura.svg"></a></header>
+    <main>
+        <section class="menu-principal">
+            <section class="titulo menu-principal">
+                <div class="recuadro">
+                    <h1 class="titulo-principal">El Ahorcado</h1>
+                </div>
+            </section>
+            
+            <section class="botones">
+                <div class="botones-contenedor">
+                    <button class="iniciar-juego menu-principal">Iniciar Juego</button>
+                    <button class="boton-agregar-palabra menu-principal">Agregar nueva palabra</button>
+                </div>
+            </section>
+        </section>
+
+        <section class="menu-juego ocultar">
+            <section class="palabra">
+                    <div class="palabra-escondida">
+                    </div>
+            </section>
+                
+                <section class="tematica ocultar">
+                    <div class="cuadro-tematica"> 
+                        <p class="texto-tematica"></p>
+                        <div class="contenedor-boton-img">
+                            <div class="contenedor-img comida ocultar"><img alt="dibujo de plato con comida" src="img/comida-animada.png"></div>
+                            <div class="contenedor-img programacion ocultar"><img alt="computadora/programación" src="img/computadora-programacion.png"></div>
+                            <div class="contenedor-img paises ocultar"><img alt="dibujo de nuestro planeta" src="img/tierra.png"></div>
+                            <div class="contenedor-img general ocultar"><img alt="imagenes de cultura general" src="img/cultura-general.png"></div>
+                            <button class="aceptar-tematica">Aceptar</button>
+                            <div class="contenedor-img general ocultar"><img alt="caja tipo dado con signos de pregunta" src="img/caja-preguntas.png"></div>
+                            <div class="contenedor-img paises ocultar"><img alt="globo terraqueo" src="img/globo-terraqueo.png"></div>
+                            <div class="contenedor-img programacion ocultar"><img alt="computadora/programación" src="img/programacion.png"></div>
+                            <div class="contenedor-img comida ocultar"><img alt="Cubiertos de cocina" src="img/cubiertos.png"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ganaste ocultar">
+                    <div class="cuadro-ganaste"> 
+                        <img class="medalla" alt="medalla de felicitaciones" src="img/medalla.svg"> 
+                        <p class="texto-ganaste">¡Felicitaciones ganaste!</p>
+                        <img class="trofeo" alt="trofeo de felicitaciones" src="img/trofeo.svg">
+                        <button class="aceptar-ganaste">Aceptar</button>
+                    </div>
+                </section>
+
+                <section class="perdiste ocultar">
+                    <div class="cuadro-perdiste"> 
+                        <img class="emoji-triste" alt="emoji triste" src="img/cara-triste-blanco.png"> 
+                        <p class="texto-perdiste">¡Perdiste!</p>
+                        <img class="emoji-triste" alt="emoji triste" src="img/cara-triste-blanco.png"> 
+                        <button class="aceptar-perdiste">Aceptar</button>
+                    </div>
+                </section>
+
+                <section class="desistio ocultar">
+                    <div class="cuadro-desistio"> 
+                        <img class="bandera-blanca" alt="bandera blanca de me rindo" src="img/bandera-blanca.png"> 
+                        <p class="texto-desistio">¡Desististe!</p>
+                        <img class="bandera-blanca" alt="bandera blanca de me rindo" src="img/bandera-blanca.png"> 
+                        <button class="aceptar-desistio">Aceptar</button>
+                    </div>
+                </section>
+                
+        
+                <section class="canvas">
+                   <canvas id="canvas" width="400" height="470"></canvas>
+                </section>
+
+                <section class="contenedor-letras-repetidas">
+                    <span class="letra-usada aviso-invisible">¡Letra repetida!</span>
+                    <textarea class="letras-repetidas" rows="2" cols="30" disabled></textarea>
+                </section>
+
+                <section class="botones-juego">
+                    <button class="volver-inicio">Volver al inicio</button>
+                    <button class="nuevo-juego">Nuevo Juego</button>
+                    <button class="desistir">Desistir</button>
+                </section>
+            </section>
+
+            <form onsubmit="submitForm(event)" class="menu-agregar-palabra ocultar">
+
+                <fieldset class="contenedor-opciones">
+                    <p>Seleccione la categoría</p>
+                    <button class="boton-programacion">Programacion</button>
+                    <button class="boton-pais">Paises</button>
+                    <button class="boton-comidas">Comidas</button>
+                    <button class="boton-general">General</button>
+                </fieldset>
+
+                <fieldset class="cuadro-agregar-palabra">
+                    <input type="text" maxlength="12" placeholder="Ingrese aquí su palabra" class="agregar-palabra" onkeypress="return(event.charCode >= 97 && event.charCode <= 122)">
+                    <div class= "contenedor-aviso-emergente">
+                        <span class="aviso-invisible texto-emergente">¡Palabra Guardada!</span>
+                    </div>
+                </fieldset>
+
+                <fieldset class="botones-agregar-palabras">
+                    <p class="signo-exclamacion">!</p><p class="max-caracteres"> Máx. de 12 letras. En minúsculas, sin espacios y sin caracteres especiales</p>
+                    <br>
+                    <button class="guardar-palabra">Guardar palabra</button>
+                    <button class="volver-inicio-2">Volver al inicio</button>
+                </fieldset>
+            </form>
+        
+            
+            
+    </main>
+    <footer> 
+        <div class="contenedor-footer">
+        <p> Desafio Alura - El ahorcado - Programa Oracle Next Education - Alejandro Dawidowicz - 2022</p> 
+        <a href="https://github.com/elaleargsfe/" target="_blank" rel="noopener noreferrer"><img class="logos" src="img/github.svg" alt="Logo de github/Enlace a github del autor de la página"></a> <a href="https://www.linkedin.com/in/mauro-peralta-057a5123a" target="_blank" rel="noopener noreferrer"><img class="logos" src="img/linkedin.svg" alt="Logo de Linkedin/Enlace a Linkedin del autor de la página"></a>
+
+    </div>
+    
+    </footer>
+    <script src="js/acerto-letra.js"></script>
+    <script src="js/alerta-palabra-guardada.js"></script>
+    <script src="js/boton-aceptar.js"></script>
+    <script src="js/boton-aceptar-tematica.js"></script>
+    <script src="js/boton-desistir.js"></script>
+    <script src="js/boton-nuevo-juego.js"></script>
+    <script src="js/botones-categorias.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/convertir-a-mayusculas.js"></script>
+    <script src="js/dibujar-letras.js"></script>
+    <script src="js/guardar-palabra.js"></script>
+    <script src="js/jugar-ahorcado.js"></script>
+    <script src="js/menu-agregar-nueva-palabra.js"></script>
+    <script src="js/menu-iniciar-juego.js"></script>
+    <script src="js/mostrar-cuadro-desistio.js"></script>
+    <script src="js/mostrar-cuadro-ganador.js"></script>
+    <script src="js/mostrar-cuadro-perdio.js"></script>
+    <script src="js/mostrar-cuadro-tematica.js"></script>
+    <script src="js/palabras-secretas.js"></script>
+    <script src="js/prevenir-envio-form.js"></script>
+    <script src="js/validar-entrada.js"></script>
+    <script src="js/variables-globales.js"></script>
+    <script src="js/verificar-si-gano.js"></script>
+    <script src="js/volver-al-menu-desde-agregar-palabra.js"></script>
+    <script src="js/volver-al-menu-desde-el-juego.js"></script>
+    <script src="js/visibilizar-error.js"></script>
+    <script src="js/desactivar-activar-botones.js"></script>
+</body>
+</html>
